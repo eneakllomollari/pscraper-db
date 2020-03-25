@@ -20,7 +20,7 @@ class VehicleSerializer(serializers.ModelSerializer):
     model = serializers.CharField(required=True, allow_blank=True)
     trim = serializers.CharField(required=True, allow_blank=True)
     body_style = serializers.CharField(required=True, allow_blank=True)
-    mileage = serializers.IntegerField(required=True, allow_null=True)
+    mileage = serializers.IntegerField(required=False, allow_null=True)
     year = serializers.IntegerField(required=True, allow_null=True)
     price = serializers.FloatField(required=True, allow_null=True)
     first_date = serializers.DateField(required=True)
