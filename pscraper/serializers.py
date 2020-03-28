@@ -4,9 +4,9 @@ from .models import Seller, Vehicle
 
 
 class SellerSerializer(serializers.ModelSerializer):
-    phone_number = serializers.CharField(required=True, max_length=31)
-    name = serializers.CharField(required=True)
-    address = serializers.CharField(required=True)
+    phone_number = serializers.CharField(required=False, max_length=31)
+    name = serializers.CharField(required=False)
+    address = serializers.CharField(required=False)
 
     class Meta:
         model = Seller
