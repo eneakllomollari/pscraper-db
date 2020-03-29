@@ -4,9 +4,11 @@ from .models import Seller, Vehicle
 
 
 class SellerSerializer(serializers.ModelSerializer):
-    phone_number = serializers.CharField(required=False, max_length=31)
-    name = serializers.CharField(required=False)
-    address = serializers.CharField(required=False)
+    address = serializers.CharField(max_length=255)
+    phone_number = serializers.CharField(max_length=31)
+    name = serializers.CharField(max_length=255)
+    latitude = serializers.FloatField(required=False)
+    longitude = serializers.FloatField(required=False)
 
     class Meta:
         model = Seller
@@ -14,19 +16,19 @@ class SellerSerializer(serializers.ModelSerializer):
 
 
 class VehicleSerializer(serializers.ModelSerializer):
-    vin = serializers.CharField(required=True, min_length=17, max_length=17)
-    listing_id = serializers.CharField(required=True)
-    make = serializers.CharField(required=True)
-    model = serializers.CharField(required=True, allow_blank=True)
-    trim = serializers.CharField(required=True, allow_blank=True)
-    body_style = serializers.CharField(required=True, allow_blank=True)
-    mileage = serializers.IntegerField(required=False, allow_null=True)
-    year = serializers.IntegerField(required=True, allow_null=True)
-    price = serializers.FloatField(required=True, allow_null=True)
-    first_date = serializers.DateField(required=True)
-    last_date = serializers.DateField(required=True)
-    duration = serializers.IntegerField(required=True)
-    seller_id = serializers.IntegerField(required=True)
+    vin = serializers.CharField(min_length=17, max_length=17)
+    listing_id = serializers.CharField()
+    make = serializers.CharField()
+    model = serializers.CharField(allow_blank=True, allow_null=True, default=None)
+    trim = serializers.CharField(allow_blank=True, allow_null=True, default=None)
+    body_style = serializers.CharField(allow_blank=True, allow_null=True, default=None)
+    mileage = serializers.IntegerField(allow_null=True, default=None)
+    year = serializers.IntegerField(allow_null=True, default=None)
+    price = serializers.FloatField(allow_null=True, default=None)
+    first_date = serializers.DateField()
+    last_date = serializers.DateField()
+    duration = serializers.IntegerField()
+    seller_id = serializers.IntegerField()
 
     class Meta:
         model = Vehicle
