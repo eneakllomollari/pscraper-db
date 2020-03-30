@@ -13,6 +13,8 @@ class VehicleView(APIView):
 
     @staticmethod
     def get(request):
+        if not request.data:
+            return Response(Vehicle.objects.all().values())
         return Response(Vehicle.objects.filter(**request.data.dict()).values())
 
     @staticmethod
@@ -35,6 +37,8 @@ class SellerView(APIView):
 
     @staticmethod
     def get(request):
+        if not request.data:
+            return Response(Seller.objects.all().values())
         return Response(Seller.objects.filter(**request.data.dict()).values())
 
     @staticmethod
