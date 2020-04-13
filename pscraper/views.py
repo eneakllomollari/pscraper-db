@@ -1,54 +1,44 @@
-from django.forms.models import model_to_dict
-from rest_framework import authentication, permissions, status
-from rest_framework.response import Response
-from rest_framework.views import APIView
+import django_filters
+from rest_framework import authentication, permissions, viewsets
 
-from .models import Seller, Vehicle
-from .serializers import SellerSerializer, VehicleSerializer
+from . import models, serializers
 
 
-class VehicleView(APIView):
+class SellerView(viewsets.ModelViewSet):
+    lookup_field = 'phone_number'
+    queryset = models.Seller.objects.all()
+    serializer_class = serializers.SellerSerializer
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['get', 'post', 'patch']
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('phone_number', 'address', 'name',)
 
-    @staticmethod
-    def get(request):
-        if not request.data:
-            return Response(Vehicle.objects.all().values())
-        return Response(Vehicle.objects.filter(**request.data.dict()).values())
-
-    @staticmethod
-    def post(request):
-        vehicle_serializer = VehicleSerializer(data=request.data)
-        vehicle_serializer.is_valid(raise_exception=True)
-        return Response(model_to_dict(vehicle_serializer.save()), status.HTTP_201_CREATED)
-
-    @staticmethod
-    def patch(request):
-        vehicle = Vehicle.objects.get(id=request.data['id'])
-        vehicle_serializer = VehicleSerializer(vehicle, data=request.data, partial=True)
-        vehicle_serializer.is_valid(raise_exception=True)
-        return Response(model_to_dict(vehicle_serializer.save()))
+    def patch(self, request, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
 
 
-class SellerView(APIView):
+class VehicleView(viewsets.ModelViewSet):
+    lookup_field = 'vin'
+    queryset = models.Vehicle.objects.all()
+    serializer_class = serializers.VehicleSerializer
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['get', 'post', 'patch']
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('vin', 'listing_id', 'make', 'model', 'trim', 'body_style', 'mileage', 'year',
+                        'year', 'price', 'first_date', 'last_date', 'duration', 'seller',)
 
-    @staticmethod
-    def get(request):
-        if not request.data:
-            return Response(Seller.objects.all().values())
-        return Response(Seller.objects.filter(**request.data.dict()).values())
+    def patch(self, request, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
 
-    @staticmethod
-    def post(request):
-        seller_serializer = SellerSerializer(data=request.data)
-        seller_serializer.is_valid(raise_exception=True)
-        return Response(model_to_dict(seller_serializer.save()), status.HTTP_201_CREATED)
 
-    @staticmethod
-    def patch(request):
-        seller_serializer = SellerSerializer(data=request.data, partial=True)
-        seller_serializer.is_valid(raise_exception=True)
-        return Response(model_to_dict(seller_serializer.save()))
+class HistoryView(viewsets.ModelViewSet):
+    lookup_field = 'vin'
+    queryset = models.History.objects.all()
+    serializer_class = serializers.HistorySerializer
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['get', 'post']
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('vin', 'price', 'seller', 'date')

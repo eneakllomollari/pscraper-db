@@ -1,10 +1,9 @@
 from django.db import models
-from field_history.tracker import FieldHistoryTracker
 
 
 class Seller(models.Model):
-    address = models.CharField(unique=True, max_length=255)
-    phone_number = models.CharField(max_length=31)
+    phone_number = models.CharField(unique=True, max_length=31)
+    address = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
@@ -26,9 +25,14 @@ class Vehicle(models.Model):
     first_date = models.DateField()
     last_date = models.DateField()
     duration = models.IntegerField()
-    seller_id = models.IntegerField()
-
-    field_history = FieldHistoryTracker(['price'])
+    seller = models.ForeignKey(Seller, on_delete=models.PROTECT)
 
     def __str__(self):
         return f'{self.make} {self.model} [{self.vin}] [{self.listing_id}]'
+
+
+class History(models.Model):
+    vin = models.CharField(max_length=17)
+    price = models.FloatField(blank=True, null=True)
+    seller = models.ForeignKey(Seller, on_delete=models.PROTECT)
+    date = models.DateField()
