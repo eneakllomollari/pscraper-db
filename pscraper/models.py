@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Seller(models.Model):
-    phone_number = models.CharField(unique=True, max_length=31)
-    address = models.CharField(max_length=255)
+    address = models.CharField(unique=True, max_length=255)
+    phone_number = models.CharField(max_length=31)
     name = models.CharField(max_length=255)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
@@ -36,3 +36,9 @@ class History(models.Model):
     price = models.FloatField(blank=True, null=True)
     seller = models.ForeignKey(Seller, on_delete=models.PROTECT)
     date = models.DateField()
+
+    def __str__(self):
+        return f'{self.vin}'
+
+    class Meta:
+        verbose_name = verbose_name_plural = 'Dynamic Data'
