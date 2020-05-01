@@ -2,14 +2,20 @@
 [![Build Status](https://travis-ci.com/eneakllomollari/pscraper-db.svg?branch=master)](https://travis-ci.com/eneakllomollari/pscraper-db)
 
 ### Design
+
 Pscraper backend is designed using:
+
 * Django
 * Django REST framework
 * MySQL
 
 ### API
-For the API documentation go to the [Pscraper API](http://pscraper.herokuapp.com/api/v1/docs) site.
+
+This application is deployed in the heroku platform under [this](http://pscraper.herokuapp.com) url. 
+For the API documentation go to the [Pscraper API](http://pscraper.herokuapp.com/api/v1/docs) site. 
+
 ### Table Schema
+
 There are 3 main tables containing the data:
 
 #### pscraper_vehicle
@@ -29,8 +35,7 @@ There are 3 main tables containing the data:
 | first_date | date         |            | No   |         |       |                                                                   |
 | last_date  | date         |            | No   |         |       |                                                                   |
 | duration   | int(11)      |            | No   |         |       |                                                                   |
-| seller_id  | int(11)      |            | No   |         |       | -> pscraper_seller.id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
-
+| seller_id  | int(11)      |            | No   |         |       | -> pscraper_seller. id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
 
 #### pscraper_seller
 
@@ -43,7 +48,6 @@ There are 3 main tables containing the data:
 | latitude     | double       |            | Yes  | NULL    |                |          |
 | longitude    | double       |            | Yes  | NULL    |                |          |
 
-
 #### pscraper_history
 
 | Column    | Type        | Attributes | Null | Default | Extra          | Links to                                                          |
@@ -52,40 +56,48 @@ There are 3 main tables containing the data:
 | vin       | varchar(17) |            | No   |         |                |                                                                   |
 | price     | double      |            | Yes  | NULL    |                |                                                                   |
 | date      | date        |            | No   |         |                |                                                                   |
-| seller_id | int(11)     |            | No   |         |                | -> pscraper_seller.id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
+| seller_id | int(11)     |            | No   |         |                | -> pscraper_seller. id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
 
 ### Environment set up
+
 1. Ensure you have `python3.7` installed
+
 ```shell script
 $ python3.7 --version
 Python 3.7.7
-```
-2. Export the necessary environment variables `DJANGO_SECRET_KEY` and `DEFAULT_DATABASE_PASSWORD`
+``` 
+
+2. Export the necessary environment variables `DJANGO_SECRET_KEY` and `DEFAULT_DATABASE_PASSWORD` 
+
 ```shell script
 export DJANGO_SECRET_KEY={{ DJANGO_SECRET_KEY_HERE }}
 export DEFAULT_DATABASE_PASSWORD={{ DEFAULT_DATABASE_PASSWORD_HERE }}
 ```
+
 3. Set up the virtual environment
+
 ```shell script
 $ python3.7 -m venv venv3
 $ source venv3/bin/activate
-(venv3)$ pip install -r requirements.txt -U
-(venv3)$ cd pscraperdb
-```
+(venv3) $ pip install -r requirements. txt -U
+(venv3) $ cd pscraperdb
+``` 
 
 ### Run Development Server locally
+
 ```shell script
-(venv3)$ ./manage.py runserver
+(venv3) $ ./manage.py runserver
 ```
 
 ### Connect to the MySQL database shell
+
 **This is a direct connection to the MySQL database**
 ```shell script
-(venv3)$ ./manage.py dbshell
-...
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+(venv3) $ . /manage. py dbshell
+... 
+Type 'help; ' or '\h' for help. Type '\c' to clear the current input statement. 
 
-mysql> SELECT make, model, price, first_date, duration FROM pscraper_vehicle WHERE price>220000;
+mysql> SELECT make, model, price, first_date, duration FROM pscraper_vehicle WHERE price>220000; 
 +---------+--------+--------+------------+----------+
 | make    | model  | price  | first_date | duration |
 +---------+--------+--------+------------+----------+
@@ -94,9 +106,9 @@ mysql> SELECT make, model, price, first_date, duration FROM pscraper_vehicle WHE
 | Porsche | Taycan | 245500 | 2020-03-30 |       22 |
 | Porsche | Taycan | 223270 | 2020-04-03 |       18 |
 +---------+--------+--------+------------+----------+
-4 rows in set (0.23 sec)
+4 rows in set (0. 23 sec)
 
-mysql> SELECT phone_number, address, name FROM pscraper_seller WHERE address LIKE '%Davis%';
+mysql> SELECT phone_number, address, name FROM pscraper_seller WHERE address LIKE '%Davis%'; 
 +--------------+------------------------------+--------------------------------------------+
 | phone_number | address                      | name                                       |
 +--------------+------------------------------+--------------------------------------------+
@@ -106,9 +118,9 @@ mysql> SELECT phone_number, address, name FROM pscraper_seller WHERE address LIK
 | 5305549791   | 4318 Chiles Rd, Davis, CA    | Hanlees Davis Chryler Dodge Jeep RAM & Kia |
 | 5302045536   | 4343 Chiles Rd, Davis, CA    | Shottenkirk Honda of Davis                 |
 +--------------+------------------------------+--------------------------------------------+
-5 rows in set (0.16 sec)
+5 rows in set (0. 16 sec)
 
-mysql> SELECT price, date, seller_id FROM pscraper_history WHERE price>245000 AND date='2020-04-16';
+mysql> SELECT price, date, seller_id FROM pscraper_history WHERE price>245000 AND date='2020-04-16'; 
 +--------+------------+-----------+
 | price  | date       | seller_id |
 +--------+------------+-----------+
@@ -116,11 +128,13 @@ mysql> SELECT price, date, seller_id FROM pscraper_history WHERE price>245000 AN
 | 245500 | 2020-04-16 |      1431 |
 | 245500 | 2020-04-16 |      1431 |
 +--------+------------+-----------+
-3 rows in set (0.17 sec)
-```
+3 rows in set (0. 17 sec)
+``` 
+
 #### List all available management commands
+
 ```shell script
-(venv3)$ ./manage.py
+(venv3) $ ./manage.py
 
 Type 'manage.py help <subcommand>' for help on a specific subcommand.
 
