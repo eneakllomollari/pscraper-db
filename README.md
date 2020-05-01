@@ -1,6 +1,5 @@
 # PHEV Electric Vehicle Scraping Backend Application
-[![Build Status](https://travis-ci.com/eneakllomollari/pscraper-db.svg?branch=master)](https://travis-ci.com/eneakllomollari/pscraper-db)
-
+[![Build Status](https://travis-ci.com/eneakllomollari/pscraper-db.svg?token=dyCCbKsyaqSXpEtQ3kCk&branch=master)](https://travis-ci.com/eneakllomollari/pscraper-db)
 ## Design
 
 Pscraper backend is designed using:
