@@ -1,7 +1,7 @@
-## PHEV Electric Vehicle Scraping Backend Application
+# PHEV Electric Vehicle Scraping Backend Application
 [![Build Status](https://travis-ci.com/eneakllomollari/pscraper-db.svg?branch=master)](https://travis-ci.com/eneakllomollari/pscraper-db)
 
-### Design
+## Design
 
 Pscraper backend is designed using:
 
@@ -9,16 +9,16 @@ Pscraper backend is designed using:
 * Django REST framework
 * MySQL
 
-### API
+## API
 
-This application is deployed in the heroku platform under [this](http://pscraper.herokuapp.com) url. 
+This application is deployed in the heroku platform under [this](http://pscraper.herokuapp.com) url.<br>
 For the API documentation go to the [Pscraper API](http://pscraper.herokuapp.com/api/v1/docs) site. 
 
-### Table Schema
+## Table Schema
 
 There are 3 main tables containing the data:
 
-#### pscraper_vehicle
+### pscraper_vehicle
 
 | Column     | Type         | Attributes | Null | Default | Extra | Links to                                                          |
 |------------|--------------|------------|------|---------|-------|-------------------------------------------------------------------|
@@ -37,7 +37,7 @@ There are 3 main tables containing the data:
 | duration   | int(11)      |            | No   |         |       |                                                                   |
 | seller_id  | int(11)      |            | No   |         |       | -> pscraper_seller. id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
 
-#### pscraper_seller
+### pscraper_seller
 
 | Column       | Type         | Attributes | Null | Default | Extra          | Links to |
 |--------------|--------------|------------|------|---------|----------------|----------|
@@ -48,7 +48,7 @@ There are 3 main tables containing the data:
 | latitude     | double       |            | Yes  | NULL    |                |          |
 | longitude    | double       |            | Yes  | NULL    |                |          |
 
-#### pscraper_history
+### pscraper_history
 
 | Column    | Type        | Attributes | Null | Default | Extra          | Links to                                                          |
 |-----------|-------------|------------|------|---------|----------------|-------------------------------------------------------------------|
@@ -58,7 +58,7 @@ There are 3 main tables containing the data:
 | date      | date        |            | No   |         |                |                                                                   |
 | seller_id | int(11)     |            | No   |         |                | -> pscraper_seller. id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
 
-### Environment set up
+## Environment set up
 
 1. Ensure you have `python3.7` installed
 
@@ -83,16 +83,16 @@ $ source venv3/bin/activate
 (venv3) $ cd pscraperdb
 ``` 
 
-### Run Development Server locally
+## Run Development Server locally
 
 ```shell script
 (venv3) $ ./manage.py runserver
 ```
 
-### Connect to the MySQL database shell
+## Connect to the MySQL database shell
 
 **This is a direct connection to the MySQL database**
-```shell script
+```mysql
 (venv3) $ . /manage. py dbshell
 ... 
 Type 'help; ' or '\h' for help. Type '\c' to clear the current input statement. 
@@ -131,7 +131,7 @@ mysql> SELECT price, date, seller_id FROM pscraper_history WHERE price>245000 AN
 3 rows in set (0. 17 sec)
 ``` 
 
-#### List all available management commands
+### List all available management commands
 
 ```shell script
 (venv3) $ ./manage.py
