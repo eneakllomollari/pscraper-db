@@ -1,5 +1,4 @@
 runtime: python37
-instance_class: F4
 entrypoint: gunicorn -c gunicorn.conf.py -b :$PORT pscraperdb.wsgi:application
 includes:
   - env_variables.yaml
