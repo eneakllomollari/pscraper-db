@@ -1,8 +1,14 @@
 runtime: python37
 env: standard
+#instance_class: B8
+#basic_scaling:
+#  max_instances: 11
+#  idle_timeout: 10m
 entrypoint: gunicorn -c gunicorn.conf.py -b :$PORT pscraperdb.wsgi:application
 includes:
   - env_variables.yaml
 handlers:
   - url: /static
-    static_dir: staticfiles
+    static_dir: staticfiles/
+  - url: /.*
+    script: auto

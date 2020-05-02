@@ -20,5 +20,5 @@ from rest_framework.documentation import include_docs_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('pscraper.urls')),
-    path('api/v1/docs', include_docs_urls(title='Pscraper API')),
+    path('api/v1/docs/', include_docs_urls(title='Pscraper API')),
 ]
