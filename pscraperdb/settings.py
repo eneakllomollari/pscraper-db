@@ -57,7 +57,7 @@ DATABASES = {
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
         'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
-        'HOST': '35.236.114.231',
+        'HOST': '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db',
         'CONN_MAX_AGE': None,
     }
 }
