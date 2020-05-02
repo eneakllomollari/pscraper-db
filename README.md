@@ -10,12 +10,15 @@ Pscraper backend is designed using:
 
 ## API
 
-This application is deployed in the heroku platform under [this](http://pscraper.herokuapp.com) url.<br>
-For the API documentation go to the [Pscraper API](http://pscraper.herokuapp.com/api/v1/docs) site. 
+This application is deployed on [Heroku](http://pscraper.herokuapp.com) and [App Engine](http://phev-scraping.appspot.com/)
+
+The API endpoints can be found [here](https://pscraper.herokuapp.com/api/v1/) or [here](https://phev-scraping.appspot.com/api/v1/). <br>
+For the full API documentation go to the Pscraper API site [here](http://pscraper.herokuapp.com/api/v1/docs) or [here](https://phev-scraping.appspot.com/api/v1/docs). 
 
 ## Table Schema
 
-There are 3 main tables containing the data:
+The MySQL instance is hosted in GCP's Cloud SQL
+There are 3 main MySQL tables containing the data:
 
 ### pscraper_vehicle
 
@@ -70,7 +73,7 @@ Python 3.7.7
 
 ```shell script
 export DJANGO_SECRET_KEY={{ DJANGO_SECRET_KEY_HERE }}
-export DEFAULT_DATABASE_PASSWORD={{ DEFAULT_DATABASE_PASSWORD_HERE }}
+export PSCRAPER_PASSWORD={{ PSCRAPER_PASSWORD_HERE }}
 ```
 
 3. Set up the virtual environment
