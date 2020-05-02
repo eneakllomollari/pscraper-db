@@ -1,0 +1,8 @@
+.gcloudignore
+.git
+.gitignore
+.idea
+__pycache__/
+/setup.cfg
+venv*
+env_variables.yaml
