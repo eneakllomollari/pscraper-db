@@ -50,22 +50,14 @@ TEMPLATES = [
         },
     },
 ]
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bRIDHheWOO',
-        'USER': 'bRIDHheWOO',
-        'PASSWORD': os.getenv('DEFAULT_DATABASE_PASSWORD'),
-        'HOST': 'remotemysql.com',
-        'PORT': '3306',
-    },
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_table',
+        'NAME': 'pscraper_db',
+        'USER': 'pscraper',
+        'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
+        'HOST': '35.236.114.231',
+        'CONN_MAX_AGE': None,
     }
 }
 
@@ -90,5 +82,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 
 django_heroku.settings(locals())
