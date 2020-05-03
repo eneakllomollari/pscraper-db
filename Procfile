@@ -1,1 +1,1 @@
-web: gunicorn -c gunicorn.conf.py pscraperdb.wsgi
+web: gunicorn pscraperdb.wsgi
