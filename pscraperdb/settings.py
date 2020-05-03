@@ -1,5 +1,7 @@
 import os
 
+import django_heroku
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = False
@@ -57,10 +59,13 @@ DATABASES = {
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
         'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
-        'HOST': '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db',
+        'HOST': '35.236.114.231',
         'CONN_MAX_AGE': None,
     }
 }
+if os.getenv('GAE_APPLICATION', False):
+    DATABASES['default']['HOST'] = '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -82,3 +87,5 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+
+django_heroku.settings(locals())

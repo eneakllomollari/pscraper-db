@@ -10,10 +10,10 @@ Pscraper backend is designed using:
 
 ## API
 
-This application is deployed on [App Engine](http://phev-scraping.appspot.com/)
+This application is deployed on [Heroku](https://pscraper.herokuapp.com/)
 
-The API endpoints can be found [here](https://phev-scraping.appspot.com/api/v1/). <br>
-For the full API documentation go to the Pscraper API site [here](https://phev-scraping.appspot.com/api/v1/docs). 
+The API endpoints can be found [here](https://pscraper.herokuapp.com/api/v1/). <br>
+For the full API documentation go to the Pscraper API site [here](https://pscraper.herokuapp.com/api/v1/docs). 
 
 ## Table Schema
 
