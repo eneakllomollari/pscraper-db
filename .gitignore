@@ -2,7 +2,6 @@
 .vscode
 venv*/
 env_variables.yaml
-staticfiles
 ### Django ###
 *.log
 *.pot
