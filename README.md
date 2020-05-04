@@ -69,14 +69,14 @@ $ python3.7 --version
 Python 3.7.7
 ``` 
 
-2. Export the necessary environment variables `DJANGO_SECRET_KEY` and `DEFAULT_DATABASE_PASSWORD` 
+2. Export the necessary environment variables `PSCRAPER_PASSWORD`, `DATABASE_HOST` and `SECRET_KEY`
 
 ```shell script
 export PSCRAPER_PASSWORD={{ PSCRAPER_PASSWORD_HERE }}
 export DATABASE_HOST={{ DATABASE_HOST_HERE }}
 export SECRET_KEY={{ DJANGO_SECRET_KEY_HERE }}
 ```
-You can generate your Django security key [here](https://djecrety.ir/) for your `SECRET_KEY` variable.
+You can generate your Django secret key [here](https://djecrety.ir/) for your `SECRET_KEY` variable.
 
 3. Clone the repo and set up the virtual environment
 
