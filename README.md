@@ -1,5 +1,8 @@
 # PHEV Electric Vehicle Scraping Backend Application
 [![Build Status](https://travis-ci.com/eneakllomollari/pscraper-db.svg?token=dyCCbKsyaqSXpEtQ3kCk&branch=master)](https://travis-ci.com/eneakllomollari/pscraper-db)
+
+This application is deployed on [Heroku](https://pscraper.herokuapp.com/)
+
 ## Design
 
 Pscraper backend is designed using:
@@ -8,9 +11,11 @@ Pscraper backend is designed using:
 * Django REST framework
 * MySQL
 
-## API
+## Deployment
 
-This application is deployed on [Heroku](https://pscraper.herokuapp.com/)
+Upon a commit being pushed to master, after the Travis CI pases the commit is deployed by Heroku.
+
+## API
 
 The API endpoints can be found [here](https://pscraper.herokuapp.com/api/v1/). <br>
 For the full API documentation go to the Pscraper API site [here](https://pscraper.herokuapp.com/api/v1/docs).
