@@ -2,21 +2,18 @@ import os
 
 import django_heroku
 
+ADMINS = MANAGERS = [('Enea', 'eneakllomollari@gmail.com')]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'pscraperdb.urls'
 WSGI_APPLICATION = 'pscraperdb.wsgi.application'
 REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 60
 SECURE_REFERRER_POLICY = 'same-origin'
-SECURE_HSTS_PRELOAD = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
 ]
 TEMPLATES = [
     {
@@ -59,7 +57,7 @@ DATABASES = {
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
         'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
-        'HOST': '35.236.114.231',
+        'HOST': os.getenv('DATABASE_HOST'),
         'CONN_MAX_AGE': None,
     }
 }
