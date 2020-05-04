@@ -13,7 +13,7 @@ Pscraper backend is designed using:
 This application is deployed on [Heroku](https://pscraper.herokuapp.com/)
 
 The API endpoints can be found [here](https://pscraper.herokuapp.com/api/v1/). <br>
-For the full API documentation go to the Pscraper API site [here](https://pscraper.herokuapp.com/api/v1/docs). 
+For the full API documentation go to the Pscraper API site [here](https://pscraper.herokuapp.com/api/v1/docs).
 
 ## Table Schema
 
@@ -37,7 +37,7 @@ There are 3 main MySQL tables containing the data:
 | first_date | date         |            | No   |         |       |                                                                   |
 | last_date  | date         |            | No   |         |       |                                                                   |
 | duration   | int(11)      |            | No   |         |       |                                                                   |
-| seller_id  | int(11)      |            | No   |         |       | -> pscraper_seller. id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
+| seller_id  | int(11)      |            | No   |         |       | -> pscraper_seller.id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
 
 ### pscraper_seller
 
@@ -58,7 +58,7 @@ There are 3 main MySQL tables containing the data:
 | vin       | varchar(17) |            | No   |         |                |                                                                   |
 | price     | double      |            | Yes  | NULL    |                |                                                                   |
 | date      | date        |            | No   |         |                |                                                                   |
-| seller_id | int(11)     |            | No   |         |                | -> pscraper_seller. id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
+| seller_id | int(11)     |            | No   |         |                | -> pscraper_seller.id<br>ON UPDATE RESTRICT<br>ON DELETE RESTRICT |
 
 ## Environment set up
 
@@ -72,30 +72,26 @@ Python 3.7.7
 2. Export the necessary environment variables `DJANGO_SECRET_KEY` and `DEFAULT_DATABASE_PASSWORD` 
 
 ```shell script
-export DJANGO_SECRET_KEY={{ DJANGO_SECRET_KEY_HERE }}
+export SECRET_KEY={{ DJANGO_SECRET_KEY_HERE }}
 export PSCRAPER_PASSWORD={{ PSCRAPER_PASSWORD_HERE }}
+export DATABASE_HOST={{ DATABASE_HOST_HERE }}
 ```
 
-3. Set up the virtual environment
+3. Clone the repo and set up the virtual environment
 
 ```shell script
+$ git clone https://github.com/eneakllomollari/pscraper-db.git
+$ cd pscraper-db
 $ python3.7 -m venv venv3
 $ source venv3/bin/activate
-(venv3) $ pip install -r requirements. txt -U
-(venv3) $ cd pscraperdb
+(venv3) $ pip install -r requirements.txt
 ``` 
-
-## Run Development Server locally
-
-```shell script
-(venv3) $ ./manage.py runserver
-```
 
 ## Connect to the MySQL database shell
 
 **This is a direct connection to the MySQL database**
 ```mysql
-(venv3) $ . /manage. py dbshell
+(venv3) $ ./manage.py dbshell
 ... 
 Type 'help; ' or '\h' for help. Type '\c' to clear the current input statement. 
 
@@ -108,7 +104,7 @@ mysql> SELECT make, model, price, first_date, duration FROM pscraper_vehicle WHE
 | Porsche | Taycan | 245500 | 2020-03-30 |       22 |
 | Porsche | Taycan | 223270 | 2020-04-03 |       18 |
 +---------+--------+--------+------------+----------+
-4 rows in set (0. 23 sec)
+4 rows in set (0.23 sec)
 
 mysql> SELECT phone_number, address, name FROM pscraper_seller WHERE address LIKE '%Davis%'; 
 +--------------+------------------------------+--------------------------------------------+
@@ -120,7 +116,7 @@ mysql> SELECT phone_number, address, name FROM pscraper_seller WHERE address LIK
 | 5305549791   | 4318 Chiles Rd, Davis, CA    | Hanlees Davis Chryler Dodge Jeep RAM & Kia |
 | 5302045536   | 4343 Chiles Rd, Davis, CA    | Shottenkirk Honda of Davis                 |
 +--------------+------------------------------+--------------------------------------------+
-5 rows in set (0. 16 sec)
+5 rows in set (0.16 sec)
 
 mysql> SELECT price, date, seller_id FROM pscraper_history WHERE price>245000 AND date='2020-04-16'; 
 +--------+------------+-----------+
@@ -130,8 +126,14 @@ mysql> SELECT price, date, seller_id FROM pscraper_history WHERE price>245000 AN
 | 245500 | 2020-04-16 |      1431 |
 | 245500 | 2020-04-16 |      1431 |
 +--------+------------+-----------+
-3 rows in set (0. 17 sec)
+3 rows in set (0.17 sec)
 ``` 
+
+## Run Development Server locally
+
+```shell script
+(venv3) $ ./manage.py runserver
+```
 
 ### List all available management commands
 
