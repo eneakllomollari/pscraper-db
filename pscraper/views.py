@@ -5,12 +5,22 @@ from . import models, serializers
 
 
 class SellerView(viewsets.ModelViewSet):
+    """
+    list:
+    Return a list of all the existing sellers.
+
+    create:
+    Create a new seller instance.
+
+    read:
+    Return an existing seller instance.
+    """
     lookup_field = 'phone_number'
     queryset = models.Seller.objects.all()
     serializer_class = serializers.SellerSerializer
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAdminUser]
-    http_method_names = ['get', 'post', 'patch']
+    http_method_names = ['get', 'post']
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('phone_number', 'address', 'name',)
 
@@ -19,6 +29,19 @@ class SellerView(viewsets.ModelViewSet):
 
 
 class VehicleView(viewsets.ModelViewSet):
+    """
+    list:
+    Return a list of all the existing vehicle instances.
+
+    create:
+    Create a new vehicle instance.
+
+    read:
+    Return an existing vehicle instance.
+
+    partial_update:
+    Update an existing vehicle instance.
+    """
     lookup_field = 'vin'
     queryset = models.Vehicle.objects.all()
     serializer_class = serializers.VehicleSerializer
@@ -34,6 +57,16 @@ class VehicleView(viewsets.ModelViewSet):
 
 
 class HistoryView(viewsets.ModelViewSet):
+    """
+    list:
+    Return a list of all the existing history records.
+
+    create:
+    Create a new history record instance.
+
+    read:
+    Return an existing history records.
+    """
     lookup_field = 'vin'
     queryset = models.History.objects.all()
     serializer_class = serializers.HistorySerializer
