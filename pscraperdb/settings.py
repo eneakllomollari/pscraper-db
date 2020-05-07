@@ -2,10 +2,10 @@ import os
 
 import django_heroku
 
-ADMINS = MANAGERS = [('Enea', 'eneakllomollari@gmail.com')]
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'pscraperdb.urls'
@@ -56,12 +56,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
-        'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
         'HOST': os.getenv('DATABASE_HOST'),
+        'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
         'CONN_MAX_AGE': None,
     }
 }
-if os.getenv('GAE_APPLICATION', False):
+if os.getenv('GAE_APPLICATION'):
     DATABASES['default']['HOST'] = '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db'
 
 AUTH_PASSWORD_VALIDATORS = [
