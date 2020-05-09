@@ -1,4 +1,3 @@
-import django_filters
 from rest_framework import authentication, permissions, viewsets
 
 from . import models, pagination, serializers
@@ -21,7 +20,6 @@ class SellerView(viewsets.ModelViewSet):
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAdminUser]
     http_method_names = ['get', 'post']
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('phone_number', 'address', 'name',)
 
     def patch(self, request, *args, **kwargs):
@@ -48,7 +46,6 @@ class VehicleView(viewsets.ModelViewSet):
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAdminUser]
     http_method_names = ['get', 'post', 'patch']
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('vin', 'listing_id', 'make', 'model', 'trim', 'body_style', 'mileage', 'year',
                         'year', 'price', 'first_date', 'last_date', 'duration', 'seller',)
 
@@ -73,20 +70,22 @@ class HistoryView(viewsets.ModelViewSet):
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAdminUser]
     http_method_names = ['get', 'post']
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('vin', 'price', 'seller', 'date')
 
 
 class SellerPaginatedView(SellerView):
+    http_method_names = ['get']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
 
 
 class VehiclePaginatedView(VehicleView):
+    http_method_names = ['get']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
 
 
 class HistoryPaginatedView(HistoryView):
+    http_method_names = ['get']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
