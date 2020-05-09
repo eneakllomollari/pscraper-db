@@ -78,12 +78,15 @@ class HistoryView(viewsets.ModelViewSet):
 
 
 class SellerPaginatedView(SellerView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
 
 
 class VehiclePaginatedView(VehicleView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
 
 
 class HistoryPaginatedView(HistoryView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
