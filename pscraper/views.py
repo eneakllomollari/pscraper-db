@@ -2,6 +2,7 @@ import django_filters
 from rest_framework import authentication, permissions, viewsets
 
 from . import models, serializers
+from .pagination import StandardResultsSetPagination
 
 
 class SellerView(viewsets.ModelViewSet):
@@ -75,3 +76,15 @@ class HistoryView(viewsets.ModelViewSet):
     http_method_names = ['get', 'post']
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('vin', 'price', 'seller', 'date')
+
+
+class SellerPaginatedView(SellerView):
+    pagination_class = StandardResultsSetPagination
+
+
+class VehiclePaginatedView(VehicleView):
+    pagination_class = StandardResultsSetPagination
+
+
+class HistoryPaginatedView(HistoryView):
+    pagination_class = StandardResultsSetPagination
