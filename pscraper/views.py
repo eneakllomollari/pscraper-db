@@ -72,7 +72,6 @@ class HistoryView(viewsets.ModelViewSet):
 
 class SellerPaginatedView(SellerView):
     http_method_names = ['get']
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = pagination.StandardResultsSetPagination
 
 
