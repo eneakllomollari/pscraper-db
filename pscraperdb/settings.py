@@ -1,19 +1,21 @@
 import os
+from socket import gethostname
 
 import django_heroku
 
-DEBUG = True
+if gethostname() != 'enea':
+    from .production_settings import *
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'pscraperdb.urls'
 WSGI_APPLICATION = 'pscraperdb.wsgi.application'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 SECURE_REFERRER_POLICY = 'same-origin'
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+LOGOUT_ON_PASSWORD_CHANGE = True
+DEBUG = True if gethostname() == 'enea' else False
 
 INSTALLED_APPS = [
     'django.contrib.admin',
