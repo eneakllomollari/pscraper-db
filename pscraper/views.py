@@ -1,8 +1,7 @@
 import django_filters
 from rest_framework import authentication, permissions, viewsets
 
-from . import models, serializers
-from .pagination import StandardResultsSetPagination
+from . import models, pagination, serializers
 
 
 class SellerView(viewsets.ModelViewSet):
@@ -79,12 +78,12 @@ class HistoryView(viewsets.ModelViewSet):
 
 
 class SellerPaginatedView(SellerView):
-    pagination_class = StandardResultsSetPagination
+    pagination_class = pagination.StandardResultsSetPagination
 
 
 class VehiclePaginatedView(VehicleView):
-    pagination_class = StandardResultsSetPagination
+    pagination_class = pagination.StandardResultsSetPagination
 
 
 class HistoryPaginatedView(HistoryView):
-    pagination_class = StandardResultsSetPagination
+    pagination_class = pagination.StandardResultsSetPagination

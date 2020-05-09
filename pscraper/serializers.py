@@ -40,6 +40,7 @@ class HistorySerializer(serializers.ModelSerializer):
     price = serializers.FloatField(allow_null=True, default=None)
     seller_id = serializers.PrimaryKeyRelatedField(source='seller', read_only=True)
     date = serializers.DateField()
+    mileage = serializers.IntegerField(allow_null=True, default=None)
 
     class Meta:
         model = models.History

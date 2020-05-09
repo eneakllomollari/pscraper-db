@@ -36,6 +36,7 @@ class History(models.Model):
     price = models.FloatField(blank=True, null=True)
     seller = models.ForeignKey(Seller, on_delete=models.PROTECT)
     date = models.DateField()
+    mileage = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.vin}'
