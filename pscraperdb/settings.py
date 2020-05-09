@@ -4,7 +4,7 @@ from socket import gethostname
 import django_heroku
 
 if gethostname() != 'enea':
-    from .production_settings import *
+    from .production_settings import *  # noqa F401,F403
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
