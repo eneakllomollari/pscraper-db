@@ -1,6 +1,6 @@
 from rest_framework import permissions, viewsets
 
-from . import models, pagination, serializers
+from .. import models, pagination, serializers
 
 
 class SellerView(viewsets.ModelViewSet):
