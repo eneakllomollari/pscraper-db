@@ -69,14 +69,14 @@ TEMPLATES = [
         },
     },
 ]
-CLOUD_SQL_DB = '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pscraper_db',
-        'USER': 'pscraper',
-        'HOST': os.getenv('DATABASE_HOST') if not os.getenv('GAE_APPLICATION') else CLOUD_SQL_DB,
-        'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
+        'USER': 'root',
+        'HOST': 'localhost',
+        'PASSWORD': 'perjetesisht',
         'CONN_MAX_AGE': None,
     },
 }
