@@ -15,7 +15,7 @@ WSGI_APPLICATION = 'pscraperdb.wsgi.application'
 SECURE_REFERRER_POLICY = 'same-origin'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LOGOUT_ON_PASSWORD_CHANGE = True
-DEBUG = True if gethostname() == 'enea' else False
+DEBUG = True if gethostname() == 'enea' else True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -69,13 +69,13 @@ TEMPLATES = [
         },
     },
 ]
-CLOUD_SQL_DB = '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
-        'HOST': os.getenv('DATABASE_HOST') if not os.getenv('GAE_APPLICATION') else CLOUD_SQL_DB,
+        'HOST': os.getenv('DATABASE_HOST'),
         'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
         'CONN_MAX_AGE': None,
     },

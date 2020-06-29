@@ -1,6 +1,6 @@
 from rest_framework import permissions, viewsets
 
-from .. import models, pagination, serializers
+from .. import models, serializers
 
 
 class SellerView(viewsets.ModelViewSet):
@@ -25,32 +25,6 @@ class SellerView(viewsets.ModelViewSet):
         self.partial_update(request, *args, **kwargs)
 
 
-class VehicleView(viewsets.ModelViewSet):
-    """
-    list:
-    Return a list of all the existing vehicle instances.
-
-    create:
-    Create a new vehicle instance.
-
-    read:
-    Return an existing vehicle instance.
-
-    partial_update:
-    Update an existing vehicle instance.
-    """
-    lookup_field = 'vin'
-    queryset = models.Vehicle.objects.all()
-    serializer_class = serializers.VehicleSerializer
-    permission_classes = [permissions.IsAdminUser]
-    http_method_names = ['get', 'post', 'patch']
-    filterset_fields = ('vin', 'listing_id', 'make', 'model', 'trim', 'body_style', 'mileage', 'year',
-                        'year', 'price', 'first_date', 'last_date', 'duration', 'seller',)
-
-    def patch(self, request, *args, **kwargs):
-        self.partial_update(request, *args, **kwargs)
-
-
 class HistoryView(viewsets.ModelViewSet):
     """
     list:
@@ -70,16 +44,35 @@ class HistoryView(viewsets.ModelViewSet):
     filterset_fields = ('vin', 'price', 'seller', 'date')
 
 
-class SellerPaginatedView(SellerView):
-    http_method_names = ['get']
-    pagination_class = pagination.StandardResultsSetPagination
+class VehicleView(viewsets.ModelViewSet):
+    """
+    list:
+    Return a list of all the existing vehicle instances.
+
+    create:
+    Create a new vehicle instance.
+
+    read:
+    Return an existing vehicle instance.
+
+    partial_update:
+    Update an existing vehicle instance.
+    """
+    lookup_field = 'vin'
+    permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['get', 'post', 'patch']
+    filterset_fields = ('vin', 'listing_id', 'make', 'model', 'trim', 'body_style', 'mileage', 'year',
+                        'year', 'price', 'first_date', 'last_date', 'duration', 'seller',)
+
+    def patch(self, request, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
 
 
-class VehiclePaginatedView(VehicleView):
-    http_method_names = ['get']
-    pagination_class = pagination.StandardResultsSetPagination
+class CarsComView(VehicleView):
+    queryset = models.CarsComVehicle.objects.all()
+    serializer_class = serializers.CarsComVehicleSerializer
 
 
-class HistoryPaginatedView(HistoryView):
-    http_method_names = ['get']
-    pagination_class = pagination.StandardResultsSetPagination
+class AutoTraderView(VehicleView):
+    queryset = models.AutoTraderVehicle.objects.all()
+    serializer_class = serializers.AutoTraderVehicleSerializer

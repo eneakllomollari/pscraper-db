@@ -15,6 +15,18 @@ class SellerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class HistorySerializer(serializers.ModelSerializer):
+    vin = serializers.CharField(min_length=17, max_length=17)
+    price = serializers.FloatField(allow_null=True, default=None)
+    seller_id = serializers.PrimaryKeyRelatedField(source='seller', read_only=True)
+    date = serializers.DateField()
+    mileage = serializers.IntegerField(allow_null=True, default=None)
+
+    class Meta:
+        model = models.History
+        fields = '__all__'
+
+
 class VehicleSerializer(serializers.ModelSerializer):
     vin = serializers.CharField(min_length=17, max_length=17)
     listing_id = serializers.CharField()
@@ -30,18 +42,14 @@ class VehicleSerializer(serializers.ModelSerializer):
     duration = serializers.IntegerField()
     seller_id = serializers.PrimaryKeyRelatedField(source='seller', read_only=True)
 
+
+class CarsComVehicleSerializer(VehicleSerializer):
     class Meta:
-        model = models.Vehicle
+        model = models.CarsComVehicle
         fields = '__all__'
 
 
-class HistorySerializer(serializers.ModelSerializer):
-    vin = serializers.CharField(min_length=17, max_length=17)
-    price = serializers.FloatField(allow_null=True, default=None)
-    seller_id = serializers.PrimaryKeyRelatedField(source='seller', read_only=True)
-    date = serializers.DateField()
-    mileage = serializers.IntegerField(allow_null=True, default=None)
-
+class AutoTraderVehicleSerializer(VehicleSerializer):
     class Meta:
-        model = models.History
+        model = models.AutoTraderVehicle
         fields = '__all__'
