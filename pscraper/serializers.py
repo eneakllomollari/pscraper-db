@@ -1,10 +1,11 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from . import models
 
 
 class SellerSerializer(serializers.ModelSerializer):
-    address = serializers.CharField(max_length=255)
+    address = serializers.CharField(max_length=255, validators=[UniqueValidator(models.Seller.objects.all())])
     phone_number = serializers.CharField(max_length=31)
     name = serializers.CharField(max_length=255)
     latitude = serializers.FloatField(required=False)
