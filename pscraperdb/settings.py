@@ -1,18 +1,22 @@
 import os
+from socket import gethostname
 
 import django_heroku
 
-DEBUG = False
-SECRET_KEY = os.getenv('SECRET_KEY')
+if gethostname() != 'enea':
+    from .production_settings import *  # noqa F401,F403
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'pscraperdb.urls'
 WSGI_APPLICATION = 'pscraperdb.wsgi.application'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 SECURE_REFERRER_POLICY = 'same-origin'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+LOGOUT_ON_PASSWORD_CHANGE = True
+DEBUG = True if gethostname() == 'enea' else False
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,12 +24,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
     'rest_framework',
+    'djoser',
     'corsheaders',
     'pscraper',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,18 +69,17 @@ TEMPLATES = [
         },
     },
 ]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
-        'HOST': os.getenv('DATABASE_HOST'),
+        'HOST': os.getenv('PSCRAPERDB_HOST'),
         'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
         'CONN_MAX_AGE': None,
-    }
+    },
 }
-if os.getenv('GAE_APPLICATION'):
-    DATABASES['default']['HOST'] = '/cloudsql/phev-scraping:us-west2:pscraper-mysql-db'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
