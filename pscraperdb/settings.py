@@ -15,7 +15,7 @@ WSGI_APPLICATION = 'pscraperdb.wsgi.application'
 SECURE_REFERRER_POLICY = 'same-origin'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LOGOUT_ON_PASSWORD_CHANGE = True
-DEBUG = True if gethostname() == 'enea' else True
+DEBUG = True if gethostname() == 'enea' else False
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -75,7 +75,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pscraper_db',
         'USER': 'pscraper',
-        'HOST': os.getenv('DATABASE_HOST'),
+        'HOST': os.getenv('PSCRAPERDB_HOST'),
         'PASSWORD': os.getenv('PSCRAPER_PASSWORD'),
         'CONN_MAX_AGE': None,
     },

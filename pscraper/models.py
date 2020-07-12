@@ -3,8 +3,8 @@ from django.db import models
 
 class Seller(models.Model):
     address = models.CharField(unique=True, max_length=255)
-    phone_number = models.CharField(max_length=31)
     name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=31, blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
 
