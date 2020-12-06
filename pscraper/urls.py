@@ -14,7 +14,7 @@ router.register(r'history-paginate', paginated_views.HistoryPaginatedView)
 
 metric_urls = [
     url(r'^cars-com-vehicle-stats', metric_views.cars_com_vehicle_stats),
-    url(r'^cars-com-makes-stats', metric_views.cars_com_makes_stats),
+    url(r'^cars-com-make-stats', metric_views.cars_com_make_stats),
     url(r'^cars-com-makes', metric_views.cars_com_makes),
 ]
 

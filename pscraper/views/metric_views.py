@@ -26,13 +26,15 @@ def cars_com_makes(_):
 
 
 @api_view()
-def cars_com_makes_stats(_):
-    all_makes = CarsComVehicle.objects.values_list('make', flat=True).distinct()
-    resp = {'makes_count': all_makes.count()}
+def cars_com_make_stats(request):
+    if len(request.query_params) > 1 or 'make' not in request.query_params.dict():
+        raise Exception('Only one filter allowed: `make`')
+    vehicles = CarsComVehicle.objects.filter(**request.query_params.dict())
+    all_makes = vehicles.values_list('make', flat=True).distinct()
+    resp = {}
     for make in all_makes:
-        resp[make] = {}
         for metric in ['price', 'duration', 'mileage', 'year']:
-            resp[make][metric] = {
+            resp[metric] = {
                 'average': get(CarsComVehicle.objects.filter(make=make).aggregate(Avg(metric))),
                 'standard_deviation': get(CarsComVehicle.objects.filter(make=make).aggregate(StdDev(metric))),
                 'variance': get(CarsComVehicle.objects.filter(make=make).aggregate(Variance(metric))),
